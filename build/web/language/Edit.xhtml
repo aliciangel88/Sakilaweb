@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LanguageEditDlg" widgetVar="LanguageEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLanguageTitle}">
+            <h:form id="LanguageEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{languageController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditLanguageLabel_languageId}" for="languageId" />
+                        <p:inputText id="languageId" value="#{languageController.selected.languageId}" title="#{bundle.EditLanguageTitle_languageId}" required="true" requiredMessage="#{bundle.EditLanguageRequiredMessage_languageId}"/>
+                        <p:outputLabel value="#{bundle.EditLanguageLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{languageController.selected.name}" title="#{bundle.EditLanguageTitle_name}" required="true" requiredMessage="#{bundle.EditLanguageRequiredMessage_name}"/>
+                        <p:outputLabel value="#{bundle.EditLanguageLabel_lastUpdate}" for="lastUpdate" />
+                        <p:calendar id="lastUpdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{languageController.selected.lastUpdate}" title="#{bundle.EditLanguageTitle_lastUpdate}" required="true" requiredMessage="#{bundle.EditLanguageRequiredMessage_lastUpdate}" showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{languageController.update}" value="#{bundle.Save}" update="display,:LanguageListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LanguageEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LanguageEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

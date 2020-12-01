@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFilmTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="FilmListForm">
+                <p:panel header="#{bundle.ListFilmTitle}">
+                    <p:dataTable id="datalist" value="#{filmController.items}" var="item"
+                                 selectionMode="single" selection="#{filmController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.filmId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_filmId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.filmId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_title}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.title}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_releaseYear}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.releaseYear}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_rentalDuration}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rentalDuration}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_rentalRate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rentalRate}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_length}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.length}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_replacementCost}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.replacementCost}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_rating}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rating}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_specialFeatures}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.specialFeatures}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_lastUpdate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lastUpdate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_languageId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.languageId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFilmTitle_originalLanguageId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.originalLanguageId}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{filmController.prepareCreate}" update=":FilmCreateForm" oncomplete="PF('FilmCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FilmViewForm" oncomplete="PF('FilmViewDialog').show()" disabled="#{empty filmController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":FilmEditForm" oncomplete="PF('FilmEditDialog').show()" disabled="#{empty filmController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{filmController.destroy}" update=":growl,datalist" disabled="#{empty filmController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FilmActorCreateDlg" widgetVar="FilmActorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFilmActorTitle}">
+            <h:form id="FilmActorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{filmActorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFilmActorLabel_lastUpdate}" for="lastUpdate" />
+                        <p:calendar id="lastUpdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{filmActorController.selected.lastUpdate}" title="#{bundle.EditFilmActorTitle_lastUpdate}" required="true" requiredMessage="#{bundle.EditFilmActorRequiredMessage_lastUpdate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateFilmActorLabel_actor}" for="actor" />
+                        <p:selectOneMenu id="actor" value="#{filmActorController.selected.actor}" required="true" requiredMessage="#{bundle.EditFilmActorRequiredMessage_actor}">
+                            <f:selectItems value="#{actorController.itemsAvailableSelectOne}"
+                                           var="actorItem"
+                                           itemValue="#{actorItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateFilmActorLabel_film}" for="film" />
+                        <p:selectOneMenu id="film" value="#{filmActorController.selected.film}" required="true" requiredMessage="#{bundle.EditFilmActorRequiredMessage_film}">
+                            <f:selectItems value="#{filmController.itemsAvailableSelectOne}"
+                                           var="filmItem"
+                                           itemValue="#{filmItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{filmActorController.create}" value="#{bundle.Save}" update="display,:FilmActorListForm:datalist,:growl" oncomplete="handleSubmit(args,'FilmActorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FilmActorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

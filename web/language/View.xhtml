@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LanguageViewDlg" widgetVar="LanguageViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLanguageTitle}">
+            <h:form id="LanguageViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{languageController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLanguageLabel_languageId}"/>
+                        <h:outputText value="#{languageController.selected.languageId}" title="#{bundle.ViewLanguageTitle_languageId}"/>
+                        <h:outputText value="#{bundle.ViewLanguageLabel_name}"/>
+                        <h:outputText value="#{languageController.selected.name}" title="#{bundle.ViewLanguageTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewLanguageLabel_lastUpdate}"/>
+                        <h:outputText value="#{languageController.selected.lastUpdate}" title="#{bundle.ViewLanguageTitle_lastUpdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LanguageViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

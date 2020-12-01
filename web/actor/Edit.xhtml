@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActorEditDlg" widgetVar="ActorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditActorTitle}">
+            <h:form id="ActorEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{actorController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditActorLabel_actorId}" for="actorId" />
+                        <p:inputText id="actorId" value="#{actorController.selected.actorId}" title="#{bundle.EditActorTitle_actorId}" required="true" requiredMessage="#{bundle.EditActorRequiredMessage_actorId}"/>
+                        <p:outputLabel value="#{bundle.EditActorLabel_firstName}" for="firstName" />
+                        <p:inputText id="firstName" value="#{actorController.selected.firstName}" title="#{bundle.EditActorTitle_firstName}" required="true" requiredMessage="#{bundle.EditActorRequiredMessage_firstName}"/>
+                        <p:outputLabel value="#{bundle.EditActorLabel_lastName}" for="lastName" />
+                        <p:inputText id="lastName" value="#{actorController.selected.lastName}" title="#{bundle.EditActorTitle_lastName}" required="true" requiredMessage="#{bundle.EditActorRequiredMessage_lastName}"/>
+                        <p:outputLabel value="#{bundle.EditActorLabel_lastUpdate}" for="lastUpdate" />
+                        <p:calendar id="lastUpdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{actorController.selected.lastUpdate}" title="#{bundle.EditActorTitle_lastUpdate}" required="true" requiredMessage="#{bundle.EditActorRequiredMessage_lastUpdate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditActorLabel_fullName}" for="fullName" />
+                        <p:inputText id="fullName" value="#{actorController.selected.fullName}" title="#{bundle.EditActorTitle_fullName}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{actorController.update}" value="#{bundle.Save}" update="display,:ActorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ActorEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ActorEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

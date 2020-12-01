@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FilmViewDlg" widgetVar="FilmViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFilmTitle}">
+            <h:form id="FilmViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{filmController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFilmLabel_filmId}"/>
+                        <h:outputText value="#{filmController.selected.filmId}" title="#{bundle.ViewFilmTitle_filmId}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_title}"/>
+                        <h:outputText value="#{filmController.selected.title}" title="#{bundle.ViewFilmTitle_title}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_description}"/>
+                        <h:outputText value="#{filmController.selected.description}" title="#{bundle.ViewFilmTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_releaseYear}"/>
+                        <h:outputText value="#{filmController.selected.releaseYear}" title="#{bundle.ViewFilmTitle_releaseYear}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFilmLabel_rentalDuration}"/>
+                        <h:outputText value="#{filmController.selected.rentalDuration}" title="#{bundle.ViewFilmTitle_rentalDuration}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_rentalRate}"/>
+                        <h:outputText value="#{filmController.selected.rentalRate}" title="#{bundle.ViewFilmTitle_rentalRate}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_length}"/>
+                        <h:outputText value="#{filmController.selected.length}" title="#{bundle.ViewFilmTitle_length}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_replacementCost}"/>
+                        <h:outputText value="#{filmController.selected.replacementCost}" title="#{bundle.ViewFilmTitle_replacementCost}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_rating}"/>
+                        <h:outputText value="#{filmController.selected.rating}" title="#{bundle.ViewFilmTitle_rating}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_specialFeatures}"/>
+                        <h:outputText value="#{filmController.selected.specialFeatures}" title="#{bundle.ViewFilmTitle_specialFeatures}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_lastUpdate}"/>
+                        <h:outputText value="#{filmController.selected.lastUpdate}" title="#{bundle.ViewFilmTitle_lastUpdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFilmLabel_languageId}"/>
+                        <h:outputText value="#{filmController.selected.languageId}" title="#{bundle.ViewFilmTitle_languageId}"/>
+                        <h:outputText value="#{bundle.ViewFilmLabel_originalLanguageId}"/>
+                        <h:outputText value="#{filmController.selected.originalLanguageId}" title="#{bundle.ViewFilmTitle_originalLanguageId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FilmViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
